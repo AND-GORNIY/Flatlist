@@ -8,7 +8,6 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {green} from 'ansi-colors';
 
 class FlatListItem extends Component {
   render() {
@@ -16,17 +15,20 @@ class FlatListItem extends Component {
     return (
       <SafeAreaView>
         <View style={styles.FlatListItem}>
-          <Text style={styles.Info}>
-            <Text> Name {this.props.item.name.first}</Text>
-            <Text> Surname {this.props.item.name.last}</Text>
-            <Text> Phone {this.props.item.phone}</Text>
-          </Text>
+          <View style={styles.Info}>
+            <Text style={styles.Text}> Name {this.props.item.name.first}</Text>
+            <Text style={styles.Text}>
+              {' '}
+              Surname {this.props.item.name.last}
+            </Text>
+            <Text style={styles.Text}> Phone {this.props.item.phone}</Text>
+          </View>
           <View>
             <Image
               source={{
                 uri: picture.large,
               }}
-              style={{width: 128, height: 128}}
+              style={styles.Image}
             />
           </View>
         </View>
@@ -49,7 +51,7 @@ class FlatListRender extends Component {
 
   makeRequest = () => {
     this.setState({loading: true});
-    fetch('https://randomuser.me/api/?results=5')
+    fetch('https://randomuser.me/api/?results=500')
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -66,13 +68,18 @@ class FlatListRender extends Component {
 
   render() {
     return (
-      <FlatList
-        data={this.state.data}
-        renderItem={({item}) => {
-          return <FlatListItem item={item} />;
-        }}
-        keyExtractor={item => item.login.uuid}
-      />
+      <View>
+        <View style={{marginTop: 10}} />
+
+        <FlatList
+          windowSize={5}
+          data={this.state.data}
+          renderItem={({item}) => {
+            return <FlatListItem item={item} />;
+          }}
+          keyExtractor={item => item.login.uuid}
+        />
+      </View>
     );
   }
 }
@@ -83,15 +90,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    margin: 10,
+    margin: 5,
+    borderWidth: 0.5,
+    borderRadius: 10,
   },
   Info: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    fontSize: 20,
     backgroundColor: '#20B2AA',
     alignItems: 'center',
+    height: 128,
+    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  Text: {
+    fontSize: 20,
+    backgroundColor: '#20B2AA',
+  },
+  Image: {
+    borderBottomRightRadius: 10,
+    borderTopRightRadius: 10,
+    width: 128,
     height: 128,
   },
 });

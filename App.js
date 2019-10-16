@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
+
 import {View, StyleSheet} from 'react-native';
 import FlatListRender from './Component/FlatListRender';
 
@@ -12,7 +13,6 @@ class App extends Component {
     );
   }
 }
-export default App;
 
 const styles = StyleSheet.create({
   component1: {
@@ -20,3 +20,5 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
 });
+
+export default App;
